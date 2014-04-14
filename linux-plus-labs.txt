@@ -177,3 +177,71 @@ Solutions to linux+ labs: http://rackspace.edgecloud.com/linux+/Labs.pdf
 26) 
 
 === NETWORK ADMINISTRATION ===
+
+1) ip a
+    - inet 172.21.101.105/24 brd 172.21.101.255
+   route 
+    - default         172.21.101.1
+   cat /etc/resolv.conf
+    - nameserver 8.8.8.8
+
+2) sudo service network stop
+
+3) sudo vim /etc/sysconfig/network-scripts/ifcfg-eth0
+     - set: BOOTPROTO="static"
+     - set: NM_CONTROLLED="no"
+     - add: DNS1=8.8.8.8
+   sudo service network start
+   sudo ip addr add 172.21.101.105/24 brd 172.21.101.255 dev eth0
+   sudo route add default gw 172.21.101.1
+   sudo mtr google.com (test connection)
+
+4) ping yahoo.com
+
+5) traceroute google.com
+
+6) ps -Af | tail -n +2 | awk '{print $1}' | sort | uniq
+
+7) 
+
+8) apache - webserver
+   mysql - database
+   bind - DNS
+   samba - network file sharing
+   squid - proxy
+   syslod - system logs
+   cups - print server
+   X - GUI server
+   inetd - tcp wrapper
+   gpm - mouse controller
+   init - starts all other processes
+
+9) wget ftp://ftp.gnu.org/ls-lrRt.txt.gz
+   gunzip ls-lrRt.txt.gz
+
+10) Detailed instructions: http://bit.ly/P0UWJO
+
+ install dependencies
+   yum install gcc gcc-c++ -y
+
+
+2) Download and unpack:
+    - PCRE - ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.35.tar.gz
+    - httpd - http://www.webhostingjams.com/mirror/apache//httpd/httpd-2.2.27.tar.gz
+    - APR - http://www.dsgnwrld.com/am//apr/apr-1.5.0.tar.gz
+    - APR-util http://www.dsgnwrld.com/am//apr/apr-util-1.5.3.tar.gz
+    - tar xzf each file from above
+
+3) install PCRE -> APR -> APR-util -> httpd
+- ./configure
+- make
+- sudo make install
+
+Note: you will still have to specify the APR folder when installing APR-util:
+
+- ./configure --with-apr=/home/student/apache/apr-1.5.0/
+
+4) test
+- sudo /usr/sbin/apachectl start
+- check http://localhost in browser and you should see "Apache 2 Test Page
+  powered by CentOS"
