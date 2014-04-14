@@ -170,7 +170,7 @@ Solutions to linux+ labs: http://rackspace.edgecloud.com/linux+/Labs.pdf
 23) man bash
 
 24) sudo mount -o ro /dev/loop0 /lab/
-    sudo touch rocheck (should error: touch: cannot touch `mynewfile': Read-only file system)
+    sudo touch rocheck (should error: touch: cannot touch 'rocheck': Read-only file system)
 
 25) 
 
