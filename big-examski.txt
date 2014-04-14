@@ -7,4 +7,20 @@
            crashkernel=auto  KEYBOARDTYPE=pc KEYTABLE=us rd_LVM_LV=vg_station12/lv_swap
            rd_NO_DM rhgb quiet 
 
-2) 
+2) - cp /etc/sysconfig/network-scripts/ifcfg-eth0 backups/
+   - cp /etc/resolv.conf backups/
+   - ip a (determine ip/netmask/broadcast
+     - 172.21.101.105/24 brd 172.21.101.255
+   - route (determine default gateway)
+     - 172.21.101.1
+   - sudo service network stop
+   - sudo vim /etc/sysconfig/network-scripts/ifcfg-eth0
+     - set: BOOTPROTO="static"
+     - set: NM_CONTROLLED="no"
+     - add: DNS1=8.8.8.8
+   - sudo service network start
+   - sudo ip addr add 172.21.101.105/24 brd 172.21.101.255 dev eth0
+   - sudo route add default gw 172.21.101.1
+   - ping google.com (test if settings are correct)
+
+3) 
