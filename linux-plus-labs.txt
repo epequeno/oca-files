@@ -98,4 +98,53 @@ Solutions to linux+ labs: http://rackspace.edgecloud.com/linux+/Labs.pdf
 
 === SYSTEM ADMINISTRATION ===
 
-1) 
+1) sudo groupadd dev
+
+2) sudo useradd -c "Alice from Dev" -s /bin/csh alice
+
+3) sudo cat /var/log/secure | grep alice
+
+4) sudo groupadd mktg
+
+5) sudo useradd -g mktg -G dev bob
+   sudo passwd -l bob
+
+6) sudo usermod -g dev -G mktg bob
+   sudo passwd -u bob 
+
+7) sudo passwd -n 21 -x 45 bob
+   sudo passwd -n 21 -x 45 alice
+
+8) cd /
+   sudo tar cf homebackup.tar /home/
+
+9) sudo mkdir /backups
+   sudo chmod 700 /backups/
+
+10) sudo gzip --best homebackup.tar
+    sudo mv /homebackup.tar.gz /backups/
+
+11) su -
+    cd /tmp/
+    tar xzf /backups/homebackup.tar.gz
+ 
+12) sudo yum list | tail -n +6 | wc
+      - yum list will print all installed packages on system
+      - tail removes some extra info from the top of the yum list output
+        the flags tell tail to take all out put starting 6 lines in, ignoring 
+        the extra info
+
+13) yum list | tail -n +6 | sort
+
+14) sudo rpm -qf /usr/bin/time
+
+15) sudo vim /etc/crontab
+      - add: */2 * *  *  * root date >> /tmp/mycronjob
+    
+16) dd if=/dev/zero of=myfs bs=1024 count=1000000
+    sudo losetup /dev/loop0 myfs
+    sudo mke2fs -t ext3 -b 1024 -m 2 -L myFileSystem /dev/loop0
+    sudo mount /dev/loop0 /lab/
+    sudo tune2fs -l /dev/loop0
+
+17) 
