@@ -1,3 +1,5 @@
+Solutions to "The Big" Examski: http://bit.ly/1qytu4k
+
 1) - sudo cp /etc/grub.conf backups/
    - sudo vim /etc/grub.conf
    - remove "rhgb" (red hat graphical boot) and "quiet" from the following
@@ -24,9 +26,25 @@
    - ping google.com (test if settings are correct)
 
 3) - dd if=/dev/zero of=myswap bs=1024 count=500000
-   - mkswap myswal
+   - mkswap myswap
    - sudo swapon myswap
    - swapon -s (check to see if swap space is being used)
-   - swapoff myswapoff 
+   - swapoff myswap
 
-4)  
+4) - sudo groupadd rollers
+   - sudo useradd -m -G rollers [username]
+   - sudo passwd [username] 
+
+5) -
+
+6) - sudo mkdir /home/rollers
+   - sudo chown :rollers /home/rollers
+   - sudo chmod 3775 /home/rollers/ (2 sgid + 1 sticky = 3) (the sgid bit makes 
+       sure all new files in the folder belong to the 'rollers' group)
+   - Test if the user can do the following:
+     - execute on dir: cd /home/rollers
+     - write to folder: touch [username]-file
+     - rm others docs (should be "not permitted"): [dude@station12 rollers]$ rm donnie-file 
+     - can write to others files: [dude@station12 rollers]$ vim donnie-file
+
+7) - 
