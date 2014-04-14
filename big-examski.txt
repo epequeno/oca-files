@@ -1,1 +1,10 @@
-1) 
+1) - sudo cp /etc/grub.conf backups/
+   - sudo vim /etc/grub.conf
+   - remove "rhgb" (red hat graphical boot) and "quiet" from the following
+     line: kernel /vmlinuz-2.6.32-431.el6.x86_64 ro
+           root=/dev/mapper/vg_station12-lv_root rd_LVM_LV=vg_station12/lv_root
+           rd_NO_LUKS LANG=en_US.UTF-8 rd_NO_MD SYSFONT=latarcyrheb-sun16
+           crashkernel=auto  KEYBOARDTYPE=pc KEYTABLE=us rd_LVM_LV=vg_station12/lv_swap
+           rd_NO_DM rhgb quiet 
+
+2) 
