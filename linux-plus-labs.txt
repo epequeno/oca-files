@@ -1,0 +1,101 @@
+Solutions to linux+ labs: http://rackspace.edgecloud.com/linux+/Labs.pdf
+
+=== SHELL BASICS ===
+
+1) - mkdir test
+
+2) - touch test/file1
+
+3) - cd test
+   - echo "Hello worllld" > file2
+
+4) - sudo yum install hunspell hunspell-en -y
+   - hunspell -l file2 > file2.typos
+
+5) - cp file2 file2.copy
+   - echo "Hello world" > file2.copy
+
+6) - hunspell -l file2.copy
+
+7) - mv file2.copy file3
+   - hunspell -l file3
+   - hunspell -l file3 > file3.typos
+
+8) - chmod 400 *.typos
+
+9) - chown student file1 file2 file3
+
+10) - chown :student *.typos
+
+11) - vim file3
+
+12) - chmod u+w file3.typos
+    - hunspell -l file3 | tee file3.typos
+
+13) - cp file3 ../file100
+
+14) - cp file3 /home/student/file101
+    - cd
+
+15) - diff file100 file101
+
+16) - MYPATH=/home/student/test/
+    - echo $MYPATH
+
+17) - cd /tmp
+    - ls $MYPATH
+
+18) - bash
+    - exit
+
+19) - export MYPATH
+
+20) - bash
+    - exit
+
+21) - ln -s /home/student/test/ link-to-test
+
+22) - cd /home/student/test/
+    - ln file1 hard-link-to-file1
+
+23) - ls -i
+    - hard links point to the same inode as the original file, so file1 and hard-link-to-file1
+      have the same inode number
+
+24) - *, ?, [, ], ., .., -, |, >, >>, <
+
+25) - apropos passwd | wc
+
+26) - ls /bin/c*
+    - ls /bin/*r*
+    - ls /bin/????
+
+27) - set | sort
+
+28) - unset MYPATH
+
+29) - man find
+
+30) - su -
+    - find / -name "*ch*" | sort
+
+31) - r (read) - files: allows the contents to be read using cat or vim, but not modified
+               - directories: allows the 
+    - w (write) - files:
+                - directories:
+    - x (execute) - files:
+                  - directories:
+
+32) - u (user) - files:
+               - directories:
+    - g (group) - files:
+                - directories:
+    - o (other) - files:
+                - directories:
+
+33) inode 2 is reserved for the root directory
+
+
+=== SYSTEM ADMINISTRATION ===
+
+1) 
