@@ -23,4 +23,10 @@
    - sudo route add default gw 172.21.101.1
    - ping google.com (test if settings are correct)
 
-3) 
+3) - dd if=/dev/zero of=myswap bs=1024 count=500000
+   - mkswap myswal
+   - sudo swapon myswap
+   - swapon -s (check to see if swap space is being used)
+   - swapoff myswapoff 
+
+4)  
