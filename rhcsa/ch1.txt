@@ -1,0 +1,8 @@
+Notes for CH1
+
+=== EXERCISE 1-2 ===
+
+1) Download CentOS 
+   http://isoredirect.centos.org/centos/6/isos/x86_64/CentOS-6.5-x86_64-bin-DVD1.iso
+
+2) 
