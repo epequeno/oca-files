@@ -1,0 +1,13 @@
+Notes for Ch3
+
+iptables
+-A Add to chain (INPUT, FORWARD, OUTPUT)
+-m match (example: state --state ESTABLISHED)
+-i interface
+-j jump to (DROP, REJECT, ACCEPT)
+-p protocol (icmp, tcp, udp)
+
+
+
+
+
