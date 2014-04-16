@@ -1,8 +1,29 @@
 Notes for CH1
 
-=== EXERCISE 1-2 ===
+=== SETUP DEFAULT CONFIG APACHE SERVER ===
 
-1) Download CentOS 
-   http://isoredirect.centos.org/centos/6/isos/x86_64/CentOS-6.5-x86_64-bin-DVD1.iso
+- Download CentOS 
+   ftp://ftp.ussg.iu.edu/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-bin-DVD1.iso
+- sudo yum install httpd
+- sudo /etc/init.d/httpd start 
+- sudo chkconfig httpd on
 
-2) 
+=== EXERCISE 1-2  ===
+
+- sudo mount -o loop Downloads/CentOS-6.5-x86_64-bin-DVD1.iso /media/
+- sudo mkdir /var/www/html/inst
+- sudo cp -ar /media/. /var/www/html/inst/
+- sudo chcon -R --reference=/var/www/html/ /var/www/html/inst/
+- sudo /etc/init.d/httpd restart
+- sudo yum install vsftpd
+- sudo /etc/init.d/vsftpd start
+- sudo chkconfig vsftpd on
+
+=== LAB 1 ===
+
+=== LAB 2  ===
+
+- sudo mkdir /var/ftp/pub/inst
+- sudo cp -ar /media/. /var/ftp/pub/inst/
+- sudo chcon -R -t public_content_t /var/ftp/
+- sudo service vsftpd restart
