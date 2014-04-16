@@ -1,0 +1,7 @@
+Notes for Ch2
+
+=== PREP ===
+
+- yum install qemu-kvm python-virtinst virt-manager virt-top virt-viewer libvirt libvirt-client -y
+
+
