@@ -76,5 +76,20 @@ ACCEPT     tcp  --  anywhere             anywhere            state NEW tcp dpt:h
      - service xinetd reload
 9) backup current version of /etc/hosts.deny
      - cp /etc/hosts.deny /home/student/backups/
-10) edit hosts.deny file and add: telnetd: ALL EXCEPT 192.168.122.168
-     - 
+10) edit hosts.deny file and add: 
+     - in.telnetd:ALL EXCEPT 192.168.122.168
+11) restore original hosts.deny
+     - cp /home/student/backups/hosts.deny /etc/hosts.deny
+12) save iptables 
+     - iptables-save > /home/student/backups/firewall-bkp.fw
+13) backup current iptables file
+     - cp /etc/sysconfig/iptables /home/student/backups/
+14) try telnet again from local, tester1.example.com and another computer on
+    LAN, all should be able to connect to telnet
+15) flush firewall rules
+     - iptables -F
+16) deny all ip's except 192.168.122.168 using iptables
+     - iptables -A INPUT ! -s 192.168.122.168 -p tcp --dport 23 -j DROP
+17) restart firewall
+     - /etc/init.d/iptables restart
+18) 
