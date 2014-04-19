@@ -49,4 +49,32 @@ ACCEPT     tcp  --  anywhere             anywhere            state NEW tcp dpt:h
 
 --- 4 ---
 
-
+1) install telnet-sever on server1.example.com and telnet (client) on 
+   tester1.example.com
+     - yum install telnet-server
+2) backup default config
+     - cp /etc/xinetd.d/telnet ~/backups/
+3) turn telnet on
+     - sudo service xinetd start
+     - chkconfig telnet on
+4) edit telnet config file
+     - sudo vim /etc/xinetd.d/telnet
+5) add the rule which specifies which ip to accept connections from
+   this is the ip of the VM we created: tester1.example.com
+     - only_from = 192.168.122.168
+6) try to telnet from the localhost (server1.example.com)
+   should get error: Connection closed by foreign host.
+     - telnet 172.21.101.105
+7) try telnet from tester1.example.com. server1.example.com might have to have 
+   port 23 tcp/udp opened on firewall to work.
+     - telnet 172.21.101.105
+8) restore original telnet config file and reload
+     - cp /home/student/backups/telnet /etc/xinetd.d/telnet
+   edit bottom line which disables telnet by default
+     - vim /etc/xinetd.d/telnet
+       - set: disable = no
+     - service xinetd reload
+9) backup current version of /etc/hosts.deny
+     - cp /etc/hosts.deny /home/student/backups/
+10) edit hosts.deny file and add: telnetd: ALL EXCEPT 192.168.122.168
+     - 
