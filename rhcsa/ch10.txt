@@ -8,7 +8,7 @@
      - gpg2 --export Steven Pequeno > steven_gpg.pub
 3) copy .pub file to remote system (station12.example.com)
      - rsync -P steven_gpg.pub student@station12.example.com:/home/student/
-4) import pub file
+4) on station12.example.com import pub file
      - gpg2 --import steven_gpg.pub
 5) verify identity was imported 
      - gpg2 --list-keys
@@ -18,3 +18,35 @@
      - rsync -P mysecret student@192.168.122.168:/home/student/
 8) on tester1.example.com decrypt file:
      - gpg2 --out labs.txt --decrypt mysecret
+
+
+--- 2 ---
+
+not much to do here, inspect /etc/init.d and use rpm -qf on any file
+you want more information about. -qf queries the file and returns information
+about the package to which that file belongs.
+
+rpm -qf abrtd
+-> abrt-2.0.8-21.el6.centos.x86_64
+rpm -qi abrt-2.0.8-21.el6.centos.x86_64
+-> Description :
+abrt is a tool to help users to detect defects in applications and
+to create a bug report with all informations needed by maintainer to fix it.
+It uses plugin system to extend its functionality.
+
+--- 3 ---
+
+1) Secure inbound connections to regular (80) and secure (443) protocols also 
+   SSH (22) with gui tool: system-config-firewall
+     - make sure that WWW (HTTP), Secure WWW (HTTPS) and SSS are checked
+     - save changes
+2) check firewall settings:
+     - iptables -L
+   relevant lines:
+ACCEPT     tcp  --  anywhere             anywhere            state NEW tcp dpt:https 
+ACCEPT     tcp  --  anywhere             anywhere            state NEW tcp dpt:ssh 
+ACCEPT     tcp  --  anywhere             anywhere            state NEW tcp dpt:http 
+
+--- 4 ---
+
+
