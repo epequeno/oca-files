@@ -1,0 +1,78 @@
+--- 1 ---
+
+1) backup current httpd config
+     - cp /etc/sysconfig/httpd /home/student/backups/
+
+2) make sure apache is running
+     - service httpd status
+
+3) see how many httpd processes are running
+     - ps aux | grep httpd
+
+4) uncomment OPTIONS line and set as:
+     - vim /etc/sysconfig/httpd
+     - OPTIONS=-l
+   the man page says -l will output list of modules loaded into the server
+
+5) restart server
+     - service httpd restart
+     --> Stopping httpd:                                            [  OK  ]
+         Starting httpd: Compiled in modules:
+           core.c
+           prefork.c
+           http_core.c
+           mod_so.c
+                                                                    [  OK  ]
+6) running ps aux | grep httpd again shows no running apache processes
+
+7) restore original httpd config file
+     - cp /home/student/backups/httpd /etc/sysconfig/httpd
+
+--- 2 ---
+
+1) create user hawaii on station12.example.com and tester1.example.com
+     - useradd hawaii
+     - passwd hawaii
+
+2) on station12.example.com create keypair as user hawaii
+     - su - hawaii
+     - ssh-keygen
+
+3) make sure that folder ~/.ssh exists on tester1.example.com with proper
+   permissions
+     - mkdir /home/hawaii/.ssh
+     - chmod 700 /home/hawaii/.ssh
+
+3) transfer public key to system you want to log into (tester1.example.com)
+   from station12.example.com
+     - rsync -P .ssh/id_rsa.pub hawaii@192.168.122.168:/home/.ssh/
+
+4) on tester1.example.com rename the copied id_rsa.pub to authorized_keys and
+   set proper permissions
+     - cd .ssh
+     - mv id_rsa.pub authorized_keys
+     - chmod 600 authorized keys
+
+5) on tester1.example.com, modify sshd_config
+     - vim /etc/ssh/sshd_config
+     - uncomment and set the following:
+       - RSAAuthentication yes
+       - PubkeyAuthentication yes
+       - AuthorizedKeysFile .ssh/authorized_keys
+       - PasswordAuthentication no
+
+6) restart sshd on tester1.example.com
+     - service sshd restart
+
+7) on station12.example.com make sure the identity is loaded as user hawaii
+     - exec ssh-agent bash
+     - ssh-add
+
+8) use ssh to connect to remote system
+     - ssh hawaii@192.168.122.168
+   the user should be taken straight to the command prompt without being asked
+   to provide a password
+
+--- 3 ---
+
+1) 

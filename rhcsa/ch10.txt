@@ -89,7 +89,18 @@ ACCEPT     tcp  --  anywhere             anywhere            state NEW tcp dpt:h
 15) flush firewall rules
      - iptables -F
 16) deny all ip's except 192.168.122.168 using iptables
-     - iptables -A INPUT ! -s 192.168.122.168 -p tcp --dport 23 -j DROP
-17) restart firewall
-     - /etc/init.d/iptables restart
-18) 
+     - iptables -A INPUT ! -s 192.168.122.168 -p tcp --dport 23 -j DROP 
+17) save rules and restart firewall
+     - service iptables save
+     - service iptables restart
+18) connections from computers other than tester1.example.com should time out
+
+
+--- 5 ---
+
+1) ldd /usr/sbin/sshd | grep libwrap
+   --> libwrap.so.0 => /lib64/libwrap.so.0 (0x00007f5afce4a000)
+
+--- 6 ---
+
+
