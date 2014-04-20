@@ -71,4 +71,16 @@
 4) install crypto-utils and Create new SSL cert
      - yum install crypto-utils -y
      - cd /etc/pki/tls/certs/
-     - 
+     - genkey big.example.com
+
+5) edit ssl.conf to update settings
+     - SSLCertificateFile /etc/pki/tls/certs/big.example.com.crt
+     - SSLCertificateKeyFile /etc/pki/tls/private/big.example.com.key
+
+6) check settings and restart httpd
+     - httpd -t
+     - service httpd restart 
+
+7) repeat steps 3 - 6 modifying for small.example.com
+
+8) 
