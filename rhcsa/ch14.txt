@@ -1,0 +1,74 @@
+--- 1 ---
+
+1) yum install httpd
+
+2) chkconfig httpd on
+
+--- 2 ---
+
+1) yum install httpd-manual
+
+--- 3 --- 
+
+1) backup current httpd.conf
+     - cp /etc/httpd/conf/httpd.conf /home/student/backups/httpd2.conf
+
+2) make directories for big.example.com and small.example.com to serve
+   as DocumentRoots
+     - mkdir /var/www/html/big.example.com
+     - mkdir /var/www/html/small.example.com
+
+3) create Named VirtualHost blocks which point to big.example.com and small.example.com
+     - vim /etc/httpd/conf/httpd.conf
+<VirtualHost *:80>
+    ServerAdmin webmaster@big.example.com
+    DocumentRoot /var/www/html/big.example.com
+    ServerName big.example.com
+    ErrorLog logs/big.example.com-error_log
+    CustomLog logs/big.example.com-access_log common
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@small.example.com
+    DocumentRoot /var/www/html/small.example.com
+    ServerName small.example.com
+    ErrorLog logs/small.example.com-error_log
+    CustomLog logs/small.example.com-access_log common
+</VirtualHost>      
+
+4) backup and edit /etc/hosts to allow browsing using *.com names
+     - cp /etc/hosts /home/student/backups/hosts2
+     - vim /etc/hosts
+     - 172.21.101.105 big.example.com
+     - 172.21.101.105 small.example.com
+
+5) make some content for websites
+     - echo "hello big world" > /var/www/html/big.example.com/index.html
+     - echo "hello small world" > /var/www/html/small.example.com/index.html
+
+6) restart httpd
+     - service httpd restart
+
+7) test by browsing to http://big.example.com and http://small.example.com
+
+--- 4 ---
+
+1) check existance of /etc/httpd/conf.d/ssl.conf
+     - ls /etc/httpd/conf.d/
+   if not there:
+     - yum install mod_ssl
+
+2) backup ssl.conf
+     - cp /etc/httpd/conf.d/ssl.conf /home/student/backups/ 
+
+3) edit ssl.conf
+     - add NameVirtualHost *:443 before <VirtualHost> block
+     - change <VirtualHost _default_:443> to <VirtualHost *:443>
+     - add: ServerAdmin webmaster@big.example.com
+     - set: DocumentRoot "/var/www/html/big.example.com"
+     - set: ServerName big.example.com:443
+
+4) install crypto-utils and Create new SSL cert
+     - yum install crypto-utils -y
+     - cd /etc/pki/tls/certs/
+     - 
