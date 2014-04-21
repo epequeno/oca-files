@@ -147,3 +147,23 @@
 
 8) restart httpd
      - service httpd restart
+
+--- 8 ---
+
+1) make directory for scripts in big.example.com's DocumentRoot
+     - mkdir /var/www/html/big.example.com/cgi-bin
+
+2) create a script in that folder; make it executable
+     - vim /var/www/html/big.example.com/cgi-bin/hello.pl
+         - #!/usr/bin/perl
+           print "Content-type: text/html\n\n";
+           print "Hello World";
+     - chmod a+x hello.pl
+
+3) edit big.example.com's VirtualHost block:
+     - ScriptAlias /cgi-bin/ /var/www/html/big.example.com/cgi-bin/ 
+     - Options +ExecCGI
+     - AddHandler cgi-script .cgi
+
+4) browse to http://big.example.com/cgi-bin/hello.pl; output should be:
+   Hello World
