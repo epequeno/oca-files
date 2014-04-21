@@ -83,4 +83,67 @@
 
 7) repeat steps 3 - 6 modifying for small.example.com
 
-8) 
+--- 5 ---
+
+1) add user and password
+     - useradd michael
+     - passwd michael
+
+2) create AuthFile for user michael
+     - htpasswd -c /etc/httpd/oneuser michael
+
+3) edit httpd.conf
+     - vim /etc/httpd/conf/httpd.conf
+     - comment out: #UserDir disabled
+     - enable: UserDir public_html
+     - add stanza for new userdir:
+<Directory "/home/michael/public_html">
+    AuthType Basic
+    AuthName "Just for one user"
+    AuthUserFile /etc/httpd/oneuser
+    Require user michael
+</Directory>
+
+4) allow users home dirs in selinux
+     - setsebool -P httpd_enable_homedirs 1
+
+5) restart httpd
+     - service httpd restart
+
+--- 6 ---
+
+1) create users and set system passwords; make them members of the 
+   techsupport group
+     - useradd techsupport
+     - useradd -G techsupport john
+     - passwd john
+     - repeat for users ivan and rajiv
+
+2) as user techsupport create ~/public_html dir; create index.html
+     - mkdir public_html
+     - echo "Have you tried turning it off and on again?" > index.html
+
+3) set permissions on /home/techsupport/
+     - chmod 2771 /home/techsupport/
+
+4) create htpasswd file for group; add other users without -c flag
+     - htpasswd -c /etc/httpd/onegroup john
+     - htpasswd /etc/httpd/onegroup ivan
+
+5) create file /etc/httpd/groupfile with the following content
+     - techsupport: john ivan rajiv
+
+6) edit httpd.conf file add the stanza:
+<Directory "/home/techsupport/public_html">
+    AuthType Basic
+    AuthName "Just for one group"
+    AuthUserFile /etc/httpd/onegroup
+    AuthGroupFile /etc/httpd/groupfile
+    Require group techsupport
+</Directory>
+
+7) check syntax
+     - httpd -t
+
+8) restart httpd
+     - service httpd restart
