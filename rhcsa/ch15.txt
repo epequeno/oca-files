@@ -1,0 +1,42 @@
+--- 1 ---
+
+1) install SAMBA and extra packages
+     - yum groupinstall "CIFS file server"
+     - OR yum install samba
+     - yum install samba-client samba-winbind samba-doc samba-swat
+
+2) make sure smb starts on boot
+     - chkconfig smb on
+
+3) start SAMBA
+     - service smb start
+
+4) check if running...
+     - service smb status
+
+5) clear fw rules
+     - iptables -F
+
+--- 2 ---
+
+1) read SAMBA man page
+     - man smb.conf
+
+2) search for 'hosts allow' and 'invalid users'
+     - use / to search
+
+3) use browser to go to: file:///usr/share/doc/samba-doc-3.6.9/htmldocs/
+
+--- 3 ---
+
+1) backup current smb.conf file
+     - cp /etc/samba/smb.conf /home/student/backups/
+
+2) edit swat conf file
+     - vim /etc/xinetd.d/swat
+       - set disabled = off
+
+3) restart xinetd
+     - serivce xinetd restart
+
+4) browse to 127.0.0.1:901 (don't use http://localhost:901)
