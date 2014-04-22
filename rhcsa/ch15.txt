@@ -40,3 +40,5 @@
      - serivce xinetd restart
 
 4) browse to 127.0.0.1:901 (don't use http://localhost:901)
+
+5)  
