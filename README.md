@@ -7,3 +7,5 @@ San Antonio, TX
 
 Text: RHCSA/RHCE Red Hat Linux Certification  
 Study Guide (Exams EX200 & EX300), 6th Edition 
+
+Hi I'm Michelle
